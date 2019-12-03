@@ -1,7 +1,8 @@
 package status
 
 import (
-	"gin_weibo/database"
+  "fmt"
+  "gin_weibo/database"
 
 	"github.com/lexkong/log"
 )
@@ -20,6 +21,8 @@ func (s *Status) Create() (err error) {
 func Delete(id int) (err error) {
 	status := &Status{}
 	status.BaseModel.ID = uint(id)
+	fmt.Printf("ID:%v",status.BaseModel.ID)
+	fmt.Printf("uintID:%v\n",uint(id))
 
 	if err = database.DB.Delete(&status).Error; err != nil {
 		log.Warnf("微博删除失败: %v", err)

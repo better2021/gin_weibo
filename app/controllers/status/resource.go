@@ -1,13 +1,14 @@
 package status
 
 import (
-	"gin_weibo/app/controllers"
-	statusModel "gin_weibo/app/models/status"
-	userModel "gin_weibo/app/models/user"
-	"gin_weibo/app/policies"
-	"gin_weibo/pkg/flash"
+  "fmt"
+  "gin_weibo/app/controllers"
+  statusModel "gin_weibo/app/models/status"
+  userModel "gin_weibo/app/models/user"
+  "gin_weibo/app/policies"
+  "gin_weibo/pkg/flash"
 
-	"github.com/gin-gonic/gin"
+  "github.com/gin-gonic/gin"
 )
 
 // Store 创建微博
@@ -15,14 +16,16 @@ func Store(c *gin.Context, currentUser *userModel.User) {
 	content := c.DefaultPostForm("content", "")
 	contentLen := len(content)
 
+	fmt.Println(len(content))
+
 	if contentLen == 0 {
 		flash.NewDangerFlash(c, "微博内容不能为空")
 		backTo(c, currentUser)
 		return
 	}
 
-	if contentLen > 140 {
-		flash.NewDangerFlash(c, "微博内容长度不能超过 140 个字")
+	if contentLen > 300 {
+		flash.NewDangerFlash(c, "微博内容长度不能超过 300 个字")
 		backTo(c, currentUser)
 		return
 	}
@@ -44,12 +47,15 @@ func Store(c *gin.Context, currentUser *userModel.User) {
 // Destroy 删除微博
 func Destroy(c *gin.Context, currentUser *userModel.User) {
 	statusID, err := controllers.GetIntParam(c, "id")
+
+	fmt.Printf("statusID:%v:",statusID)
 	if err != nil {
 		controllers.Render404(c)
 		return
 	}
 
 	status, err := statusModel.Get(statusID)
+	fmt.Printf("status:%v\n",status)
 	if err != nil {
 		flash.NewDangerFlash(c, "删除失败")
 		backTo(c, currentUser)

@@ -85,6 +85,10 @@ func (fd *FlashData) Danger(msg string, args ...interface{}) {
 
 // Save flash
 func (fd *FlashData) Save(c *gin.Context) {
+  fmt.Printf("Content-Type:%v",c.Request.Header.Get("Content-Type"))
+  fmt.Printf("host:%v\n",c.Request.Host)
+  fmt.Printf("url:%v\n",c.Request.URL)
+  fmt.Printf("method:%v\n",c.Request.Method)
 	fd.save(c, FlashInContextAndCookieKeyName)
 }
 
@@ -124,12 +128,15 @@ func NewDangerFlash(c *gin.Context, msg string, args ...interface{}) {
 // ------------------ private
 // 将 flash 数据保存到 gin context keys 中和 cookie 中
 func (fd *FlashData) save(c *gin.Context, keyName string) {
+  fmt.Println(c.Keys[keyName],"---")
+  fmt.Println(fd.Data)
 	c.Keys[keyName] = fd.Data
 
 	var flashValue string
 	for key, value := range fd.Data {
 		flashValue += "\x00" + key + "\x23" + FlashSeparator + "\x23" + value + "\x00"
 	}
+	fmt.Printf("flashValue:%v",flashValue)
 	c.SetCookie(keyName, flashValue, 0, "/", "", false, true)
 }
 
