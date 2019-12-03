@@ -59,7 +59,7 @@ func main() {
 	printRoute()
 
 	// 启动
-	fmt.Printf("\n\n-------------------------------------------------- Start to listening the incoming requests on http address: %s --------------------------------------------------\n\n", config.AppConfig.Addr)
+	fmt.Printf("\n\n-------------------------- Start to listening the incoming requests on http address: %s ------------------------------------\n\n", config.AppConfig.Addr)
 	if err := http.ListenAndServe(config.AppConfig.Addr, g); err != nil {
 		log.Fatal("http server 启动失败", err)
 	}

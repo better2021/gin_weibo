@@ -1,12 +1,11 @@
 package config
 
 import (
-	"fmt"
+  "fmt"
+  "github.com/lexkong/log"
 
-	"github.com/lexkong/log"
-
-	"github.com/fsnotify/fsnotify"
-	"github.com/spf13/viper"
+  "github.com/fsnotify/fsnotify"
+  "github.com/spf13/viper"
 )
 
 const (
@@ -41,7 +40,8 @@ func InitConfig() {
 	viper.SetConfigType(configFileType)
 
 	if err := viper.ReadInConfig(); err != nil {
-		panic(fmt.Sprintf("读取配置文件失败，请检查: %v", err))
+		//panic(fmt.Sprintf("读取配置文件失败，请检查: %v", err))
+    fmt.Sprintf("读取配置文件失败，请检查: %v", err)
 	}
 
 	// 初始化日志

@@ -25,9 +25,10 @@ func newDBConfig() *dbConfig {
 	viper.SetDefault("DB.CONNECTION", "mysql")
 	viper.SetDefault("DB.HOST", "127.0.0.1")
 	viper.SetDefault("DB.PORT", 3306)
-	viper.SetDefault("DB.DATABASE", viper.GetString("APP.NAME"))
-	viper.SetDefault("DB.USERNAME", "gin")
-	viper.SetDefault("DB.PASSWORD", "")
+	// viper.SetDefault("DB.DATABASE", viper.GetString("APP.NAME"))
+  viper.SetDefault("DB.DATABASE","gin")
+	viper.SetDefault("DB.USERNAME", "root")
+	viper.SetDefault("DB.PASSWORD", "709463253")
 
 	username := viper.GetString("DB.USERNAME")
 	password := viper.GetString("DB.PASSWORD")

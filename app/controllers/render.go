@@ -86,7 +86,7 @@ func Render404(c *gin.Context) {
 
 // RenderUnauthorized -
 func RenderUnauthorized(c *gin.Context) {
-	Render403(c, "很抱歉，您没有权限访问该页面")
+	Render403(c,"很抱歉，您没有权限访问该页面")
 }
 
 // private ---------------------

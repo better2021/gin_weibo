@@ -1,7 +1,8 @@
 package sessions
 
 import (
-	"gin_weibo/app/auth"
+  "fmt"
+  "gin_weibo/app/auth"
 	"gin_weibo/app/controllers"
 	userRequest "gin_weibo/app/requests/user"
 	"gin_weibo/pkg/flash"
@@ -24,6 +25,9 @@ func Store(c *gin.Context) {
 		Password: c.PostForm("password"),
 	}
 	user, errors := userLoginForm.ValidateAndGetUser(c)
+
+  fmt.Println(errors,"++")
+	fmt.Println(user.IsActivated(),"--")
 
 	if len(errors) != 0 || user == nil {
 		flash.SaveValidateMessage(c, errors)

@@ -14,9 +14,9 @@ func SaveCurrentUserToContext(c *gin.Context) {
 	if err != nil {
 		return
 	}
-
 	c.Keys[config.AppConfig.ContextCurrentUserDataKey] = user
 }
+
 
 // GetCurrentUserFromContext : 从 context 中获取用户模型
 func GetCurrentUserFromContext(c *gin.Context) (*userModel.User, error) {

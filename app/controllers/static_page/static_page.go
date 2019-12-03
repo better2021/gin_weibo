@@ -1,21 +1,23 @@
 package staticpage
 
 import (
-	"gin_weibo/app/auth"
-	"gin_weibo/app/controllers"
-	followerModel "gin_weibo/app/models/follower"
-	statusModel "gin_weibo/app/models/status"
-	userModel "gin_weibo/app/models/user"
-	viewmodels "gin_weibo/app/view_models"
-	"gin_weibo/pkg/pagination"
-	"gin_weibo/routes/named"
+  "fmt"
+  "gin_weibo/app/auth"
+  "gin_weibo/app/controllers"
+  followerModel "gin_weibo/app/models/follower"
+  statusModel "gin_weibo/app/models/status"
+  userModel "gin_weibo/app/models/user"
+  viewmodels "gin_weibo/app/view_models"
+  "gin_weibo/pkg/pagination"
+  "gin_weibo/routes/named"
 
-	"github.com/gin-gonic/gin"
+  "github.com/gin-gonic/gin"
 )
 
 // Home 主页
 func Home(c *gin.Context) {
 	currentUser, err := auth.GetCurrentUserFromContext(c)
+
 	if err != nil {
 		controllers.Render(c, "static_page/home.html", gin.H{})
 		return
@@ -23,6 +25,7 @@ func Home(c *gin.Context) {
 
 	// 获取用户所有关注的人 (包括自己)
 	following, _ := followerModel.Followings(int(currentUser.ID), 0, 0)
+	fmt.Println("---")
 	userIDmap := make(map[uint]*userModel.User, 0)
 	userIDmap[currentUser.ID] = currentUser
 	followingIDList := make([]uint, 0)

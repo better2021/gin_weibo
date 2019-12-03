@@ -4,7 +4,7 @@ import "time"
 
 const (
 	// TrueTinyint true
-	TrueTinyint = 1
+	TrueTinyint = 0
 	// FalseTinyint false
 	FalseTinyint = 0
 )
