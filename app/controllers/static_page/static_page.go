@@ -67,10 +67,19 @@ func Home(c *gin.Context) {
 
 // Help 帮助页
 func Help(c *gin.Context) {
-	controllers.Render(c, "static_page/help.html", gin.H{})
+  currentUser, _ := auth.GetCurrentUserFromContext(c)
+	controllers.Render(c, "static_page/help.html", gin.H{
+	   "user":currentUser.Name,
+  })
 }
 
 // About 关于页
 func About(c *gin.Context) {
-	controllers.Render(c, "static_page/about.html", gin.H{})
+  currentUser, _ := auth.GetCurrentUserFromContext(c)
+
+	controllers.Render(c, "static_page/about.html", gin.H{
+	  "user":currentUser.Name,
+	  "email":currentUser.Email,
+	  "time":currentUser.CreatedAt.Format("2006-01-02 15:04:05"),
+  })
 }

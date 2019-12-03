@@ -1,20 +1,22 @@
 package user
 
 import (
-	"github.com/gin-gonic/gin"
+  "fmt"
+  "github.com/gin-gonic/gin"
+  "time"
 
-	followerModel "gin_weibo/app/models/follower"
-	statusModel "gin_weibo/app/models/status"
-	userModel "gin_weibo/app/models/user"
-	"gin_weibo/routes/named"
+  followerModel "gin_weibo/app/models/follower"
+  statusModel "gin_weibo/app/models/status"
+  userModel "gin_weibo/app/models/user"
+  "gin_weibo/routes/named"
 
-	"gin_weibo/app/controllers"
-	"gin_weibo/app/policies"
-	userRequest "gin_weibo/app/requests/user"
-	"gin_weibo/app/services"
-	viewmodels "gin_weibo/app/view_models"
-	"gin_weibo/pkg/flash"
-	"gin_weibo/pkg/pagination"
+  "gin_weibo/app/controllers"
+  "gin_weibo/app/policies"
+  userRequest "gin_weibo/app/requests/user"
+  "gin_weibo/app/services"
+  viewmodels "gin_weibo/app/view_models"
+  "gin_weibo/pkg/flash"
+  "gin_weibo/pkg/pagination"
 )
 
 // Index 用户列表
@@ -88,6 +90,17 @@ func Show(c *gin.Context, currentUser *userModel.User) {
 		isFollowing = followerModel.IsFollowing(int(currentUser.ID), id)
 	}
 
+	fmt.Println(time.Now().Unix(),"---") // 获取到以秒为时间的时间戳
+	fmt.Println(time.Now().Weekday()) // 获取英文格式的星期
+	fmt.Printf("当前分钟:%v\n",time.Now().Minute()) // 获取分钟
+
+  fmt.Println(time.Date(2018,10,1,10,30,20,0,time.Local)) // 输入的时间
+
+  // 获取指定日期的时间戳
+  dt,_:= time.Parse("2006-01-02 15:04:05","2018-10-01 10:30:20")
+  fmt.Println(dt.Unix())
+
+  nowTime := time.Now().Format("2006-01-02 15:04:05")
 	controllers.Render(c, "user/show.html",
 		pagination.CreatePaginationFillToTplData(c, "page", currentPage, pageTotalCount, gin.H{
 			"userData":         viewmodels.NewUserViewModelSerializer(user),
@@ -96,6 +109,7 @@ func Show(c *gin.Context, currentUser *userModel.User) {
 			"followingsLength": followingsLength,
 			"followersLength":  followersLength,
 			"isFollowing":      isFollowing,
+			"nowTime":nowTime,
 		}))
 }
 

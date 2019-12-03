@@ -13,6 +13,9 @@
     <div class="offset-md-1 col-md-10">
       {{ template "shared/messages" . }}
       <h1>关于</h1>
+      <p>你好，{{.user}}</p>
+      <p>邮箱:{{.email}}</p>
+      <p>创建时间：{{.time}}</p>
       {{ template "shared/footer" }}
     </div>
   </div>
